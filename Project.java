@@ -48,7 +48,7 @@ public class Project {
 
         // Se move.
         robot.move(distance);
-        ArUtil.sleep(3000);
+        ArUtil.sleep(10000);
     }
 
     private static void moveRight(double distance, ArRobot robot) {
@@ -63,7 +63,7 @@ public class Project {
 
     private static void moveForward(double distance, ArRobot robot) {
         robot.move(distance);
-        ArUtil.sleep(3000);
+        ArUtil.sleep(10000);
     }
 
     private static void moveBackwards(double distance, ArRobot robot) {
@@ -71,7 +71,16 @@ public class Project {
         ArUtil.sleep(3000);
     }
 
-    
+    /* TESTE DE OBJETIVO */
+    private static State finalState;
+
+    private static boolean goalTest(State s) {
+        System.out.println(Math.abs(finalState.getX() - s.getX()) + " " + Math.abs(finalState.getY()- s.getY()));
+        if(Math.abs(finalState.getX() - s.getX()) <= 500 && Math.abs(finalState.getY()- s.getY()) <= 500)
+            return true;
+        return false;
+    }
+
 
     public static void main(String argv[]) {
 
@@ -100,9 +109,7 @@ public class Project {
 
         /* EXECUÇÃO */
         robot.runAsync(true);
-        
-        State initialState = new State(1000, 1500);
-        
+           
         // Disconnecting.
         robot.stopRunning();
         robot.disconnect();
