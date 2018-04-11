@@ -18,6 +18,37 @@ public class Project {
         }
     }
 
+    /* AÇÕES */
+    private static void moveLeft(double distance, ArRobot robot) {
+        // Gira 90º anti-horário.
+        robot.setDeltaHeading(90);
+        ArUtil.sleep(8000);
+
+        // Se move.
+        robot.move(distance);
+        ArUtil.sleep(3000);
+    }
+
+    private static void moveRight(double distance, ArRobot robot) {
+         // Gira 90º horário.
+         robot.setDeltaHeading(-90);
+         ArUtil.sleep(8000);
+ 
+         // Se move.
+         robot.move(distance);
+         ArUtil.sleep(3000);
+    }
+
+    private static void moveForward(double distance, ArRobot robot) {
+        robot.move(distance);
+        ArUtil.sleep(3000);
+    }
+
+    private static void moveBackwards(double distance, ArRobot robot) {
+        robot.move(-distance);
+        ArUtil.sleep(3000);
+    }
+
     public static void main(String argv[]) {
 
         /* INICIALIZAÇÃO */
@@ -43,7 +74,16 @@ public class Project {
 		robot.addRangeDevice(sonar);
         robot.enableMotors();
 
+        /* EXECUÇÃO */
+        robot.runAsync(true);
+        moveLeft(500, robot);
+        moveRight(500, robot);
+        moveBackwards(500, robot);
+        moveForward(500, robot);
+        
+
         // Disconnecting.
+        robot.stopRunning();
         robot.disconnect();
     }
 }
