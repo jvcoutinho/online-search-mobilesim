@@ -45,7 +45,7 @@ public class Project {
     }
 
     private static void moveBackwards(double distance, ArRobot robot) {
-        robot.move(-distance);
+        robot.move(-(distance - 50)/2);
         ArUtil.sleep(3000);
     }
 
@@ -76,10 +76,6 @@ public class Project {
 
         /* EXECUÇÃO */
         robot.runAsync(true);
-        moveLeft(500, robot);
-        moveRight(500, robot);
-        moveBackwards(500, robot);
-        moveForward(500, robot);
         
 
         // Disconnecting.
