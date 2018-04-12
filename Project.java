@@ -109,6 +109,10 @@ public class Project {
         return false;
     }
 
+    /* FUNÇÃO HEURÍSTICA (distância entre 2 pontos) */
+    private static double heuristic(State s) {
+        return Math.sqrt(Math.pow(s.getX() - finalState.getX(), 2) + Math.pow(s.getY() - finalState.getY(), 2));
+    }
 
     public static void main(String argv[]) {
 
