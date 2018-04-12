@@ -6,6 +6,7 @@
  *  Renato Ferreira */
 
 import java.awt.Point;
+import java.util.LinkedList;
 import com.mobilerobots.Aria.*;
 
 public class Project {
@@ -71,6 +72,34 @@ public class Project {
         ArUtil.sleep(3000);
     }
 
+    private static LinkedList<String> restrictActions(State s, ArSonarDevice sonar) {
+        
+        // Checking which directions the robot can take.
+        LinkedList<String> actions = new LinkedList<String>();
+        
+        //System.out.println(sonar.currentReadingPolar(-10, 10));
+        if(sonar.currentReadingPolar(-10, 10) > 500) 
+            actions.add("forward");
+        
+        //System.out.println(sonar.currentReadingPolar(70, 110));
+        if(sonar.currentReadingPolar(70, 110) > 500)             
+            actions.add("left");
+       
+        //System.out.println(sonar.currentReadingPolar(170, 190));
+        if(sonar.currentReadingPolar(170, 190) > 500)  
+            actions.add("backwards");
+        
+        //System.out.println(sonar.currentReadingPolar(250, 290));
+        if(sonar.currentReadingPolar(250, 290) > 500) 
+            actions.add("right");
+
+        return actions;
+
+        /*Iterator<String> i = actions.iterator();
+        while(i.hasNext())
+            System.out.print(i.next()+"\t");*/
+    }
+
     /* TESTE DE OBJETIVO */
     private static State finalState;
 
@@ -108,7 +137,7 @@ public class Project {
 
         /* EXECUÇÃO */
         robot.runAsync(true);
-           
+        
         // Disconnecting.
         robot.stopRunning();
         robot.disconnect();
