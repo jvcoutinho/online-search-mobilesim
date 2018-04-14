@@ -1,10 +1,12 @@
 import java.awt.Point;
+import java.util.LinkedList;
 
 /* ESTADOS */
 public class State {
     private Point coordinates;
     private State result[]; // Modelo de transição: 0 - esquerda; 1 - frente; 2 - direita; 3 - trás.
     private double estimatedCost; // Função de custo f
+    private LinkedList<String> possibleActions; // Ações possíveis.
 
     State(double x, double y) {
         coordinates = new Point();
@@ -35,5 +37,13 @@ public class State {
 
     public void setEstimatedCost(double cost) {
         estimatedCost = cost;
+    }
+
+    public void setPossibleActions(LinkedList<String> actions) {
+        possibleActions = actions;
+    }
+
+    public LinkedList<String> getPossibleActions() {
+        return possibleActions;
     }
 }

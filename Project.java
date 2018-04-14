@@ -76,6 +76,8 @@ public class Project {
         if(sonar.currentReadingPolar(250, 290) > 500) 
             actions.add("right");
 
+        s.setPossibleActions(actions);
+            
         return actions;
 
         /*Iterator<String> i = actions.iterator();
