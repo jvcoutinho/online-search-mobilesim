@@ -142,7 +142,7 @@ public class Project {
 
             tmpAction = i.next();      
             tmpCost = calculateCost(s, s.getResultState(actions.get(tmpAction)));
-            
+            System.out.println(tmpAction + " " + tmpCost);
             if(tmpCost < cost) {
                 cost = tmpCost;
                 action = tmpAction;
@@ -220,6 +220,7 @@ public class Project {
                     break;
             }
 
+            nextAction = chooseAction(new State(robot.getX(), robot.getY()), sonar);
         }
         
         // Disconnecting.
