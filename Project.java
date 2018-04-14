@@ -110,11 +110,26 @@ public class Project {
         if(currentState.getEstimatedCost() == -1) // Sou um estado novo (ainda não descoberto).
             currentState.setEstimatedCost(heuristic(currentState));
 
+        if(previousState != null) {
+            previousState.setResultState(currentState, actions.get(nextAction));
+            previousState.setEstimatedCost(getLowestCost(previousState));
+        }    
+
         nextAction = selectLowestCostAction(currentState, sonar);    
         previousState = currentState;
 
-        return "";
+        return nextAction;
+    }
 
+    private static double getLowestCost(State s) {
+
+        double cost = 9999999;
+
+        Iterator<String> i = s.getPossibleActions().iterator();        
+        while(i.hasNext()) 
+            cost = Math.min(cost, calculateCost(s, s.getResultState(actions.get(i.next()))));
+        
+        return cost;
     }
 
     private static String selectLowestCostAction(State s, ArSonarDevice sonar) {
