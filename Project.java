@@ -5,7 +5,9 @@
  *  Rebeca Oliveira
  *  Renato Ferreira */
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import com.mobilerobots.Aria.*;
 
 public class Project {
@@ -20,6 +22,8 @@ public class Project {
     }
 
     /* AÇÕES */
+    private static Map<String, Integer> actions;
+    
     private static void moveLeft(double distance, ArRobot robot) {
         // Gira 90º anti-horário.
         robot.setDeltaHeading(90);
@@ -93,6 +97,13 @@ public class Project {
     }
 
     public static void main(String argv[]) {
+
+        // Mapping the actions.
+        actions = new HashMap<String, Integer>();
+        actions.put("left", 0);
+        actions.put("forward", 1);
+        actions.put("right", 2);
+        actions.put("backwards", 3);
 
         /* INICIALIZAÇÃO */
 		Aria.init();	
