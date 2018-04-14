@@ -10,6 +10,7 @@ public class State {
         coordinates = new Point();
         coordinates.setLocation(x, y);
         result = new State[4];
+        estimatedCost = -1;
     }
 
     public double getX() {

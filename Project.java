@@ -6,6 +6,7 @@
  *  Renato Ferreira */
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 import com.mobilerobots.Aria.*;
@@ -79,7 +80,7 @@ public class Project {
 
         /*Iterator<String> i = actions.iterator();
         while(i.hasNext())
-            System.out.print(i.next()+"\t");*/
+            System.out.print(i.next()+"\t");*/        
     }
 
     /* TESTE DE OBJETIVO */
@@ -94,6 +95,50 @@ public class Project {
     /* FUNÇÃO HEURÍSTICA (distância entre 2 pontos) */
     private static double heuristic(State s) {
         return Math.sqrt(Math.pow(s.getX() - finalState.getX(), 2) + Math.pow(s.getY() - finalState.getY(), 2));
+    }
+
+    /* ALGORITMO LRTA* (busca online) */
+    private static State previousState;
+    private static String nextAction;
+
+    private static String chooseAction(State currentState, ArSonarDevice sonar) {
+
+        if(goalTest(currentState)) // Estou no estado objetivo.
+            return "stop";
+        if(currentState.getEstimatedCost() == -1) // Sou um estado novo (ainda não descoberto).
+            currentState.setEstimatedCost(heuristic(currentState));
+
+        nextAction = selectLowestCostAction(currentState, sonar);    
+        previousState = currentState;
+
+        return "";
+
+    }
+
+    private static String selectLowestCostAction(State s, ArSonarDevice sonar) {
+
+        double cost = 99999999, tmpCost;
+        String action = "", tmpAction;
+
+        Iterator<String> i = restrictActions(s, sonar).iterator();        
+        while(i.hasNext()) {
+
+            tmpAction = i.next();      
+            tmpCost = calculateCost(s, s.getResultState(actions.get(tmpAction)));
+            
+            if(tmpCost < cost) {
+                cost = tmpCost;
+                action = tmpAction;
+            }
+        }
+
+        return action;
+    } 
+
+    private static double calculateCost(State s, State nextS) {
+        if(nextS == null)
+            return heuristic(s);
+        return 1 + heuristic(nextS);
     }
 
     public static void main(String argv[]) {
@@ -130,6 +175,13 @@ public class Project {
 
         /* EXECUÇÃO */
         robot.runAsync(true);
+        moveBackwards(1, robot);
+
+        finalState = new State(2000, 0);
+        nextAction = chooseAction(new State(robot.getX(), robot.getY()), sonar);
+        while(nextAction != "stop") {
+
+        }
         
         // Disconnecting.
         robot.stopRunning();
