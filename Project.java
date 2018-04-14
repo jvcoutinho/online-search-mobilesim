@@ -61,19 +61,19 @@ public class Project {
         LinkedList<String> actions = new LinkedList<String>();
         
         //System.out.println(sonar.currentReadingPolar(-10, 10));
-        if(sonar.currentReadingPolar(-10, 10) > 500) 
+        if(sonar.currentReadingPolar(-10, 10) > 600) 
             actions.add("forward");
         
         //System.out.println(sonar.currentReadingPolar(70, 110));
-        if(sonar.currentReadingPolar(70, 110) > 500)             
+        if(sonar.currentReadingPolar(70, 110) > 600)             
             actions.add("left");
        
         //System.out.println(sonar.currentReadingPolar(170, 190));
-        if(sonar.currentReadingPolar(170, 190) > 500)  
+        if(sonar.currentReadingPolar(170, 190) > 600)  
             actions.add("backwards");
         
         //System.out.println(sonar.currentReadingPolar(250, 290));
-        if(sonar.currentReadingPolar(250, 290) > 500) 
+        if(sonar.currentReadingPolar(250, 290) > 600) 
             actions.add("right");
 
         s.setPossibleActions(actions);
@@ -105,6 +105,7 @@ public class Project {
 
     private static String chooseAction(State currentState, ArSonarDevice sonar) {
 
+        System.out.println("Estou em: " + currentState.getX() + " " + currentState.getY());
         if(goalTest(currentState)) // Estou no estado objetivo.
             return "stop";
         if(currentState.getEstimatedCost() == -1) // Sou um estado novo (ainda não descoberto).
@@ -146,7 +147,7 @@ public class Project {
             if(tmpCost < cost) {
                 cost = tmpCost;
                 action = tmpAction;
-            }
+            }   
         }
 
         return action;

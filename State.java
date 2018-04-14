@@ -10,7 +10,7 @@ public class State {
 
     State(double x, double y) {
         coordinates = new Point();
-        coordinates.setLocation(x, y);
+        coordinates.setLocation(Math.floor(x/500) * 500, Math.floor(y/500) * 500);
         result = new State[4];
         estimatedCost = -1;
     }
