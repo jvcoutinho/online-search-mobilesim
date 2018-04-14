@@ -5,7 +5,6 @@
  *  Rebeca Oliveira
  *  Renato Ferreira */
 
-import java.awt.Point;
 import java.util.LinkedList;
 import com.mobilerobots.Aria.*;
 
@@ -17,27 +16,6 @@ public class Project {
         } catch (UnsatisfiedLinkError e) {
             System.err.println("Native code library libAriaJava failed to load. Make sure that its directory is in your library path; See javaExamples/README.txt and the chapter on Dynamic Linking Problems in the SWIG Java documentation (http://www.swig.org) for help.\n" + e);
             System.exit(1);
-        }
-    }
-
-    /* ESTADOS */
-    private static class State {
-        Point coordinates;
-        State result[]; // Modelo de transição: 0 - esquerda; 1 - frente; 2 - direita; 3 - trás.
-        double estimatedCost; // Função de custo f
-
-        State(double x, double y) {
-            coordinates = new Point();
-            coordinates.setLocation(x, y);
-            result = new State[4];
-        }
-
-        public double getX() {
-            return coordinates.getX();
-        }
-
-        public double getY() {
-            return coordinates.getY();
         }
     }
 
