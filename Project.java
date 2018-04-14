@@ -195,8 +195,30 @@ public class Project {
         moveBackwards(1, robot);
 
         finalState = new State(2000, 0);
+        robot.moveTo(new ArPose(1000, 1050, 0));
         nextAction = chooseAction(new State(robot.getX(), robot.getY()), sonar);
         while(nextAction != "stop") {
+
+            switch (nextAction) {
+                case "left":
+                    moveLeft(500, robot);
+                    break;
+                
+                case "forward":
+                    moveForward(500, robot);
+                    break;
+            
+                case "right":
+                    moveRight(500, robot);
+                    break;
+                
+                case "backward":
+                    moveBackwards(500, robot);
+                    break;
+                
+                default:
+                    break;
+            }
 
         }
         
