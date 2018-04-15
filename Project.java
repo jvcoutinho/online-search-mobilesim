@@ -149,7 +149,7 @@ public class Project {
                 action = tmpAction;
             }   
         }
-
+        System.out.println();
         return action;
     } 
 
@@ -157,6 +157,23 @@ public class Project {
         if(nextS == null)
             return heuristic(s);
         return 1 + heuristic(nextS);
+    }
+
+    /* PERCEPÇÃO */
+    private static State[][] visitedStates = new State[30][30];
+    
+    private static State defineCurrentState(int x, int y) {
+
+        State currentState;
+
+        if(visitedStates[x][y] == null) {
+            currentState = new State(x, y);
+            visitedStates[x][y] = currentState;
+        } else {
+            currentState = visitedStates[x][y];
+        }
+
+        return currentState;
     }
 
     public static void main(String argv[]) {
@@ -196,8 +213,10 @@ public class Project {
         moveBackwards(1, robot);
 
         finalState = new State(2000, 0);
-        robot.moveTo(new ArPose(1000, 1050, 0));
-        nextAction = chooseAction(new State(robot.getX(), robot.getY()), sonar);
+        robot.moveTo(new ArPose(5000, 1050, 0));
+
+        State currentState = defineCurrentState((int) robot.getX() / 500, (int) robot.getY() / 500);
+        nextAction = chooseAction(currentState, sonar);
         while(nextAction != "stop") {
 
             switch (nextAction) {
@@ -221,7 +240,8 @@ public class Project {
                     break;
             }
 
-            nextAction = chooseAction(new State(robot.getX(), robot.getY()), sonar);
+            currentState = defineCurrentState((int) robot.getX() / 500, (int) robot.getY() / 500);
+            nextAction = chooseAction(currentState, sonar);
         }
         
         // Disconnecting.

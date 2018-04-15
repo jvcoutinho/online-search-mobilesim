@@ -8,9 +8,9 @@ public class State {
     private double estimatedCost; // Função de custo f
     private LinkedList<String> possibleActions; // Ações possíveis.
 
-    State(double x, double y) {
+    State(int x, int y) {
         coordinates = new Point();
-        coordinates.setLocation(Math.floor(x/500) * 500, Math.floor(y/500) * 500);
+        coordinates.setLocation(x * 500.0, y * 500.0);
         result = new State[4];
         estimatedCost = -1;
     }
